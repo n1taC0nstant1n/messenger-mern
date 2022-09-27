@@ -1,0 +1,1 @@
+export const RREFISTER_FAIL = "REGISTER_FAIL";
