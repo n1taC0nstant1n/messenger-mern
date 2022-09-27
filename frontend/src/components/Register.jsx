@@ -27,7 +27,7 @@ const Register = () => {
     formData.append("image", image);
 
     dispatch(userRegister(formData));
-    //console.log(state);
+    console.log(state);
   };
 
   const inputHandle = (e) => {
