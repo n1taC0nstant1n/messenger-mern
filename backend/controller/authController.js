@@ -1,6 +1,8 @@
 const formidable = require("formidable");
 const validator = require("validator");
 const registerModel = require("../models/authModel");
+const fs = require("fs");
+const bcryptjs = require("bcryptjs");
 module.exports.userRegister = (req, res) => {
   const form = formidable();
   form.parse(req, async (err, fields, files) => {
@@ -55,6 +57,18 @@ module.exports.userRegister = (req, res) => {
             error: {
               errorMessage: ["Email already exist!"],
             },
+          });
+        } else {
+          fs.copyFile(files.image.filepath, newPath, async (error) => {
+            if (!error) {
+              const userCreate = await registerModel.create({
+                userName,
+                email,
+                password: await bcryptjs.hash(password, 10),
+                image: files.image.originalFilename,
+              });
+              console.log("Registration Complete Successfully!");
+            }
           });
         }
       } catch (error) {

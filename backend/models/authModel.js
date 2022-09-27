@@ -15,7 +15,7 @@ const registerSchema = new Schema(
       require: true,
       select: false,
     },
-    email: {
+    image: {
       type: String,
       required: true,
     },
