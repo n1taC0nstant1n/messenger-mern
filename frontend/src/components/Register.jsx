@@ -1,6 +1,21 @@
 import React from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 const Register = () => {
+  const [state, setState] = useState({
+    userName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    image: "",
+  });
+
+  const inputHandle = (e) => {
+    setState({
+      ...state,
+      [e.target.name]: e.target.value,
+    });
+  };
   return (
     <div className="register">
       <div className="card">
@@ -16,6 +31,9 @@ const Register = () => {
                 className="form-control"
                 placeholder="username"
                 id="username"
+                name="userName"
+                value={state.userName}
+                onChange={inputHandle}
               />
             </div>
             <div className="form-group">
@@ -25,6 +43,9 @@ const Register = () => {
                 className="form-control"
                 placeholder="Email"
                 id="email"
+                name="email"
+                value={state.email}
+                onChange={inputHandle}
               />
             </div>
             <div className="form-group">
@@ -34,6 +55,9 @@ const Register = () => {
                 className="form-control"
                 placeholder="Password"
                 id="password"
+                name="password"
+                value={state.password}
+                onChange={inputHandle}
               />
             </div>
             <div className="form-group">
@@ -43,6 +67,9 @@ const Register = () => {
                 className="form-control"
                 placeholder="Confirm Password"
                 id="confirmPassword"
+                name="confirmPassword"
+                value={state.confirmPassword}
+                onChange={inputHandle}
               />
             </div>
             <div className="form-group">
@@ -52,9 +79,9 @@ const Register = () => {
                   <label htmlFor="image">Select Image</label>
                   <input
                     type="file"
-                    name="image"
                     id="image"
                     className="form-control"
+                    name="image"
                   />
                 </div>
               </div>
