@@ -10,6 +10,13 @@ const Register = () => {
     image: "",
   });
 
+  const [loadImage, setLoadImage] = useState("");
+
+  const register = (e) => {
+    e.preventDefault();
+    console.log(state);
+  };
+
   const inputHandle = (e) => {
     setState({
       ...state,
@@ -24,12 +31,13 @@ const Register = () => {
         [e.target.name]: e.target.files[0],
       });
     }
+    const reader = new FileReader();
+    reader.onload = () => {
+      setLoadImage(reader.result);
+    };
+    reader.readAsDataURL(e.target.files[0]);
   };
 
-  const register = (e) => {
-    e.preventDefault();
-    console.log(state);
-  };
   return (
     <div className="register">
       <div className="card">
@@ -88,7 +96,9 @@ const Register = () => {
             </div>
             <div className="form-group">
               <div className="file-image">
-                <div className="image"></div>
+                <div className="image">
+                  {loadImage ? <img src={loadImage} /> : ""}
+                </div>
                 <div className="file">
                   <label htmlFor="image">Select Image</label>
                   <input
