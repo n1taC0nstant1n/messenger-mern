@@ -1,6 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { userLogin } from "../store/actions/authActions";
 const Login = () => {
+  const [state, setState] = useState({
+    email: "",
+    password: "",
+  });
+  const inputHandle = (e) => {
+    setState({
+      ...state,
+      [e.target.name]: e.target.value,
+    });
+  };
+  const login = (e) => {
+    e.preventDefault();
+    console.log(state);
+  };
   return (
     <div className="register">
       <div className="card">
@@ -8,7 +23,7 @@ const Login = () => {
           <h3>Login</h3>
         </div>
         <div className="card-body">
-          <form>
+          <form onSubmit={login}>
             <div className="form-group">
               <label htmlFor="email">Email</label>
               <input
@@ -16,6 +31,9 @@ const Login = () => {
                 className="form-control"
                 placeholder="Email"
                 id="email"
+                name="email"
+                value={state.email}
+                onChange={inputHandle}
               />
             </div>
             <div className="form-group">
@@ -25,6 +43,9 @@ const Login = () => {
                 className="form-control"
                 placeholder="Password"
                 id="password"
+                name="password"
+                value={state.password}
+                onChange={inputHandle}
               />
             </div>
             <div className="form-group">
