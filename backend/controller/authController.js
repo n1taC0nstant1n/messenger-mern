@@ -111,3 +111,19 @@ module.exports.userRegister = (req, res) => {
     }
   }); // end formidable
 };
+
+module.exports.userLogin = async (req, res) => {
+  // console.log("this is from login page");
+  const error = [];
+  const { email, password } = req.body;
+  if (!email) {
+    error.push("Please provide your Email!");
+  }
+  if (!password) {
+    error.push("Please provide your Password!");
+  }
+  if (email && !validator.isEmail(email)) {
+    error.push("Please provide your valid Email!");
+  }
+  console.log(req.body);
+};
