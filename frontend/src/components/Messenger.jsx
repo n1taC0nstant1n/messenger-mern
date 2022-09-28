@@ -36,6 +36,10 @@ const Messenger = () => {
                 />
               </div>
             </div>
+            <div className="active-friends"></div>
+            <div className="friends">
+              <div className="hover-frien"></div>
+            </div>
           </div>
         </div>
       </div>
