@@ -1,7 +1,17 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { userLogin } from "../store/actions/authActions";
+import { useAlert } from "react-alert";
+import { useDispatch, useSelector } from "react-redux";
+import { ERROR_CLEAR, SUCCESS_MESSAGE_CLEAR } from "../store/types/authType";
 const Login = () => {
+  const dispatch = useDispatch();
+  const alert = useAlert();
+  const navigate = useNavigate();
+  const { loading, authenticated, error, successMessage, myInfo } = useSelector(
+    (state) => state.auth
+  );
+
   const [state, setState] = useState({
     email: "",
     password: "",
@@ -14,8 +24,23 @@ const Login = () => {
   };
   const login = (e) => {
     e.preventDefault();
-    console.log(state);
+    //console.log(state);
+    dispatch(userLogin(state));
   };
+  useEffect(() => {
+    if (authenticated) {
+      navigate("/");
+    }
+    if (successMessage) {
+      alert.success(successMessage);
+      dispatch({ type: SUCCESS_MESSAGE_CLEAR });
+    }
+    if (error) {
+      error.map((err) => alert.error(err));
+      dispatch({ type: ERROR_CLEAR });
+    }
+  });
+
   return (
     <div className="register">
       <div className="card">
