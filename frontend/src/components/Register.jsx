@@ -1,11 +1,12 @@
 import React from "react";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { userRegister } from "../store/actions/authActions";
 import { useAlert } from "react-alert";
 
 const Register = () => {
+  const navigate = useNavigate();
   const alert = useAlert();
   const { loading, authenticated, error, successMessage, myInfo } = useSelector(
     (state) => state.auth
@@ -34,8 +35,21 @@ const Register = () => {
     formData.append("image", image);
 
     dispatch(userRegister(formData));
+
     //console.log(state);
   };
+
+  useEffect(() => {
+    if (authenticated) {
+      navigate("/");
+    }
+    if (successMessage) {
+      alert.success(successMessage);
+    }
+    if (error) {
+      error.map((err) => alert.error(err));
+    }
+  }, [successMessage, error]);
 
   const inputHandle = (e) => {
     setState({
