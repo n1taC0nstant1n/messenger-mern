@@ -17,6 +17,17 @@ const tokenDecode = (token) => {
   return tokenDecoded;
 };
 
+const getToken = localStorage.getItem("authToken");
+if (getToken) {
+  const getInfo = tokenDecode(getToken);
+  if (getInfo) {
+    authState.myInfo = getInfo;
+    authState.authenticated = true;
+    authState.loading = false;
+  }
+}
+console.log(getToken);
+
 export const authReducer = (state = authState, action) => {
   const { payload, type } = action;
 
