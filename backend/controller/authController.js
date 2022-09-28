@@ -125,5 +125,69 @@ module.exports.userLogin = async (req, res) => {
   if (email && !validator.isEmail(email)) {
     error.push("Please provide your valid Email!");
   }
-  console.log(req.body);
+  if (error.length > 0) {
+    res.status(400).json({
+      error: {
+        errorMessage: error,
+      },
+    });
+  } else {
+    try {
+      const checkUser = await registerModel
+        .findOne({
+          email: email,
+        })
+        .select("+password");
+      if (checkUser) {
+        const matchPassword = await bcryptjs.compare(
+          password,
+          checkUser.password
+        );
+        if (matchPassword) {
+          const token = jwt.sign(
+            {
+              id: checkUser._id,
+              userName: checkUser.userName,
+              email: checkUser.email,
+              image: checkUser.image,
+              registerTime: checkUser.createdAt,
+            },
+            process.env.SECRET,
+            {
+              expiresIn: process.env.TOKEN_EXP,
+            }
+          );
+          const options = {
+            expires: new Date(
+              Date.now() + process.env.COOKIE_EXP * 24 * 60 * 60 * 1000
+            ),
+          };
+          res.status(200).cookie("authToken", token, options).json({
+            successMessage: "Your Login Successfull!",
+            token,
+          });
+        } else {
+          res.status(400).json({
+            error: {
+              errorMessage: ["Your Password not Valid!"],
+            },
+          });
+        }
+      } else {
+        res.status(400).json({
+          error: {
+            errorMessage: ["Your Email Not Found!"],
+          },
+        });
+      }
+      //console.log(checkUser);
+    } catch {
+      res.status(404).json({
+        error: {
+          errorMessage: ["Internal Server Error"],
+        },
+      });
+    }
+  }
+  //console.log(req.body);
 };
