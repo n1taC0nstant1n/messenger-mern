@@ -12,6 +12,42 @@ const ActiveFriends = () => {
           <img src="/image/5066kazi.jpg" alt="" />
           <div className="active-icon"></div>
         </div>
+        <div className="image">
+          <img src="/image/5066kazi.jpg" alt="" />
+          <div className="active-icon"></div>
+        </div>
+        <div className="image">
+          <img src="/image/5066kazi.jpg" alt="" />
+          <div className="active-icon"></div>
+        </div>
+        <div className="image">
+          <img src="/image/5066kazi.jpg" alt="" />
+          <div className="active-icon"></div>
+        </div>
+        <div className="image">
+          <img src="/image/5066kazi.jpg" alt="" />
+          <div className="active-icon"></div>
+        </div>
+        <div className="image">
+          <img src="/image/5066kazi.jpg" alt="" />
+          <div className="active-icon"></div>
+        </div>
+        <div className="image">
+          <img src="/image/5066kazi.jpg" alt="" />
+          <div className="active-icon"></div>
+        </div>
+        <div className="image">
+          <img src="/image/5066kazi.jpg" alt="" />
+          <div className="active-icon"></div>
+        </div>
+        <div className="image">
+          <img src="/image/5066kazi.jpg" alt="" />
+          <div className="active-icon"></div>
+        </div>
+        <div className="image">
+          <img src="/image/5066kazi.jpg" alt="" />
+          <div className="active-icon"></div>
+        </div>
       </div>
     </div>
   );
