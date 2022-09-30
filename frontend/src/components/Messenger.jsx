@@ -1,6 +1,6 @@
 import React from "react";
 import { FaEdit, FaEllipsisH, FaSistrix } from "react-icons/fa";
-import { getFriends } from "../store/actions/messengerAction";
+import { getFriends, messageSend } from "../store/actions/messengerAction";
 import ActiveFriend from "./ActiveFriend";
 import Friends from "./Friends";
 import RightSide from "./RightSide";
@@ -15,7 +15,13 @@ const Messenger = () => {
   };
   const sendMessage = (e) => {
     e.preventDefault();
-    console.log(newMessage);
+    const data = {
+      senderName: myInfo.userName,
+      receiverId: currentFriend._id,
+      message: newMessage ? newMessage : "❤",
+    };
+    dispatch(messageSend(data));
+    //console.log(newMessage);
   };
   console.log(currentFriend);
   const { friends } = useSelector((state) => state.messenger);
