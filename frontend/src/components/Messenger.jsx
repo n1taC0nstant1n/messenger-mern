@@ -4,9 +4,12 @@ import { getFriends } from "../store/actions/messengerAction";
 import ActiveFriend from "./ActiveFriend";
 import Friends from "./Friends";
 import RightSide from "./RightSide";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+
 const Messenger = () => {
+  const { friends } = useSelector((state) => state.messenger);
+  //console.log(friends);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getFriends());
@@ -51,9 +54,13 @@ const Messenger = () => {
               <ActiveFriend />
             </div>
             <div className="friends">
-              <div className="hover-friend">
-                <Friends />
-              </div>
+              {friends && friends.length > 0
+                ? friends.map((fd) => (
+                    <div className="hover-friend">
+                      <Friends friend={fd} />
+                    </div>
+                  ))
+                : "No Friend"}
             </div>
           </div>
         </div>
