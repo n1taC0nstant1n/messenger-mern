@@ -9,6 +9,7 @@ import { useEffect } from "react";
 
 const Messenger = () => {
   const { friends } = useSelector((state) => state.messenger);
+  const { myInfo } = useSelector((state) => state.auth);
   //console.log(friends);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -23,10 +24,10 @@ const Messenger = () => {
             <div className="top">
               <div className="image-name">
                 <div className="image">
-                  <img src="/image/5066kazi.jpg" alt="" />
+                  <img src={`./image/${myInfo.image}`} alt="" />
                 </div>
                 <div className="name">
-                  <h3>Hi Ariyan</h3>
+                  <h3>Hi {myInfo.userName}</h3>
                 </div>
               </div>
               <div className="icons">
