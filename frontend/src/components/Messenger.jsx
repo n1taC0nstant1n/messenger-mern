@@ -9,6 +9,14 @@ import { useEffect, useState } from "react";
 
 const Messenger = () => {
   const [currentFriend, setCurrentFriend] = useState("");
+  const [newMessage, setNewMessage] = useState("");
+  const inputHandler = (e) => {
+    setNewMessage(e.target.value);
+  };
+  const sendMessage = (e) => {
+    e.preventDefault();
+    console.log(newMessage);
+  };
   console.log(currentFriend);
   const { friends } = useSelector((state) => state.messenger);
   const { myInfo } = useSelector((state) => state.auth);
@@ -17,6 +25,9 @@ const Messenger = () => {
   useEffect(() => {
     dispatch(getFriends());
   }, []);
+  useEffect(() => {
+    if (friends && friends.length > 0) setCurrentFriend(friends[0]);
+  }, [friends]);
 
   return (
     <div className="messenger">
@@ -71,7 +82,12 @@ const Messenger = () => {
           </div>
         </div>
         {currentFriend ? (
-          <RightSide currentFriend={currentFriend} />
+          <RightSide
+            currentFriend={currentFriend}
+            inputHandler={inputHandler}
+            newMessage={newMessage}
+            sendMessage={sendMessage}
+          />
         ) : (
           "Please select Your Friend"
         )}
