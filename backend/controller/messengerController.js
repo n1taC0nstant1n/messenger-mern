@@ -39,7 +39,7 @@ module.exports.messageUploadDB = async (req, res) => {
       message: insertMessage,
     });
   } catch (error) {
-    res.status(400).json({
+    res.status(500).json({
       error: {
         errorMessage: "Internal Server Error",
       },

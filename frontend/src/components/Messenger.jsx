@@ -1,6 +1,10 @@
 import React from "react";
 import { FaEdit, FaEllipsisH, FaSistrix } from "react-icons/fa";
-import { getFriends, messageSend } from "../store/actions/messengerAction";
+import {
+  getFriends,
+  messageSend,
+  getMessage,
+} from "../store/actions/messengerAction";
 import ActiveFriend from "./ActiveFriend";
 import Friends from "./Friends";
 import RightSide from "./RightSide";
@@ -34,6 +38,9 @@ const Messenger = () => {
   useEffect(() => {
     if (friends && friends.length > 0) setCurrentFriend(friends[0]);
   }, [friends]);
+  useEffect(() => {
+    dispatch(getMessage(currentFriend._id));
+  }, [currentFriend?._id]);
 
   return (
     <div className="messenger">
