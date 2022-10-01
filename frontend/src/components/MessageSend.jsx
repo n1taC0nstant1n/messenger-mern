@@ -6,7 +6,13 @@ import {
   FaPlusCircle,
 } from "react-icons/fa";
 
-const MessageSend = ({ inputHandler, newMessage, sendMessage, emojiSend }) => {
+const MessageSend = ({
+  inputHandler,
+  newMessage,
+  sendMessage,
+  emojiSend,
+  ImageSend,
+}) => {
   const emojis = [
     "😀",
     "😄",
@@ -39,7 +45,13 @@ const MessageSend = ({ inputHandler, newMessage, sendMessage, emojiSend }) => {
       </div>
       <div className="file hover-image">
         <div className="add-image">Add Image</div>
-        <label htmlFor="picture">
+        <input
+          type="file"
+          id="pic"
+          className="form-control"
+          onChange={ImageSend}
+        />
+        <label htmlFor="pic">
           <FaFileImage />
         </label>
       </div>
