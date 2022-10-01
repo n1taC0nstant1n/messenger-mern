@@ -27,7 +27,7 @@ const Messenger = () => {
     dispatch(messageSend(data));
     //console.log(newMessage);
   };
-  console.log(currentFriend._id);
+  console.log(currentFriend);
   const { friends } = useSelector((state) => state.messenger);
   const { myInfo } = useSelector((state) => state.auth);
   //console.log(friends);
@@ -40,8 +40,8 @@ const Messenger = () => {
   }, [friends]);
 
   useEffect(() => {
-    dispatch(getMessage(currentFriend.id));
-  }, [currentFriend?.id]);
+    dispatch(getMessage(currentFriend._id));
+  }, [currentFriend?._id]);
   //const user = myInfo.userName.toUpperCase();
 
   return (
