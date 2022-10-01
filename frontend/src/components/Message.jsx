@@ -1,14 +1,14 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-const Message = ({ message, currentFriend }) => {
+const Message = ({ message, currentFriend, scrollRef }) => {
   const { myInfo } = useSelector((state) => state.auth);
   return (
     <div className="message-show">
       {message && message.length > 0
         ? message.map((m) =>
             m.senderId === myInfo.id ? (
-              <div className="my-message">
+              <div className="my-message" ref={scrollRef}>
                 <div className="image-message">
                   <div className="my-text">
                     <div className="message-text">{m.message.text}</div>
@@ -17,7 +17,7 @@ const Message = ({ message, currentFriend }) => {
                 <div className="time">2 Jan 2022</div>
               </div>
             ) : (
-              <div className="fd-message">
+              <div className="fd-message" ref={scrollRef}>
                 <div className="image-message-time">
                   <img src={`/image/${currentFriend.image}`} alt="" />
                   <div className="message-time">

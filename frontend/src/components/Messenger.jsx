@@ -8,10 +8,11 @@ import {
 import ActiveFriend from "./ActiveFriend";
 import Friends from "./Friends";
 import RightSide from "./RightSide";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector, useRef } from "react-redux";
 import { useEffect, useState } from "react";
 
 const Messenger = () => {
+  const scrollRef = useRef();
   const [currentFriend, setCurrentFriend] = useState("");
   const [newMessage, setNewMessage] = useState("");
   const inputHandler = (e) => {
@@ -41,6 +42,9 @@ const Messenger = () => {
   useEffect(() => {
     dispatch(getMessage(currentFriend._id));
   }, [currentFriend?._id]);
+  useEffect(() => {
+    scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [message]);
 
   return (
     <div className="messenger">
@@ -105,6 +109,7 @@ const Messenger = () => {
             newMessage={newMessage}
             sendMessage={sendMessage}
             message={message}
+            scrollRef={scrollRef}
           />
         ) : (
           "Please select Your Friend"
