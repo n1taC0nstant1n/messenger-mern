@@ -8,8 +8,8 @@ import {
 import ActiveFriend from "./ActiveFriend";
 import Friends from "./Friends";
 import RightSide from "./RightSide";
-import { useDispatch, useSelector, useRef } from "react-redux";
-import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState, useRef } from "react";
 
 const Messenger = () => {
   const scrollRef = useRef();
@@ -45,6 +45,10 @@ const Messenger = () => {
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [message]);
+
+  const emojiSend = (emu) => {
+    setNewMessage(`${newMessage}` + emu);
+  };
 
   return (
     <div className="messenger">
@@ -110,6 +114,7 @@ const Messenger = () => {
             sendMessage={sendMessage}
             message={message}
             scrollRef={scrollRef}
+            emojiSend={emojiSend}
           />
         ) : (
           "Please select Your Friend"

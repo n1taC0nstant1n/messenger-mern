@@ -11,6 +11,7 @@ const RightSide = (props) => {
   const { sendMessage } = props;
   const { message } = props;
   const { scrollRef } = props;
+  const { emojiSend } = props;
 
   return (
     <div className="col-9">
@@ -54,6 +55,7 @@ const RightSide = (props) => {
                 inputHandler={inputHandler}
                 newMessage={newMessage}
                 sendMessage={sendMessage}
+                emojiSend={emojiSend}
               />
             </div>
           </div>

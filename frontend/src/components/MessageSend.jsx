@@ -6,7 +6,7 @@ import {
   FaPlusCircle,
 } from "react-icons/fa";
 
-const MessageSend = ({ inputHandler, newMessage, sendMessage }) => {
+const MessageSend = ({ inputHandler, newMessage, sendMessage, emojiSend }) => {
   const emojis = [
     "😀",
     "😄",
@@ -69,7 +69,7 @@ const MessageSend = ({ inputHandler, newMessage, sendMessage }) => {
       <div className="emoji-section">
         <div className="emoji">
           {emojis.map((e) => (
-            <span>{e}</span>
+            <span onClick={() => emojiSend(e)}>{e}</span>
           ))}
         </div>
       </div>
