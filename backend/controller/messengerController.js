@@ -46,3 +46,30 @@ module.exports.messageUploadDB = async (req, res) => {
     });
   }
 };
+
+module.exports.messageGet = async (req, res) => {
+  const myId = req.myId;
+  const fdId = req.params.id;
+  // console.log(myId);
+  // console.log(req.params.id);
+  try {
+    let getAllMessage = await messageModel.find({});
+    //console.log(getAllMessage);
+    getAllMessage = getAllMessage.filter(
+      (m) =>
+        (m.senderId === myId && m.receiverId === fdId) ||
+        (m.receiverId === myId && m.senderId === fdId)
+    );
+    //console.log(getAllMessage);
+    res.status(200).json({
+      success: true,
+      message: getAllMessage,
+    });
+  } catch (error) {
+    res.status(500).json({
+      error: {
+        errorMessage: "Internal Server Error",
+      },
+    });
+  }
+};
