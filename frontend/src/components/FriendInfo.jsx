@@ -2,6 +2,7 @@ import React from "react";
 import { FaCaretSquareDown } from "react-icons/fa";
 const FriendInfo = (props) => {
   const { currentFriend } = props;
+  //const name = currentFriend.userName.toUpperCase();
   return (
     <div className="friend-info">
       <input type="checkbox" id="gallery" />

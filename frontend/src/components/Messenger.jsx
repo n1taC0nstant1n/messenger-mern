@@ -1,6 +1,10 @@
 import React from "react";
 import { FaEdit, FaEllipsisH, FaSistrix } from "react-icons/fa";
-import { getFriends, messageSend } from "../store/actions/messengerAction";
+import {
+  getFriends,
+  messageSend,
+  getMessage,
+} from "../store/actions/messengerAction";
 import ActiveFriend from "./ActiveFriend";
 import Friends from "./Friends";
 import RightSide from "./RightSide";
@@ -23,7 +27,7 @@ const Messenger = () => {
     dispatch(messageSend(data));
     //console.log(newMessage);
   };
-  console.log(currentFriend);
+  console.log(currentFriend._id);
   const { friends } = useSelector((state) => state.messenger);
   const { myInfo } = useSelector((state) => state.auth);
   //console.log(friends);
@@ -34,6 +38,11 @@ const Messenger = () => {
   useEffect(() => {
     if (friends && friends.length > 0) setCurrentFriend(friends[0]);
   }, [friends]);
+
+  useEffect(() => {
+    dispatch(getMessage(currentFriend.id));
+  }, [currentFriend?.id]);
+  //const user = myInfo.userName.toUpperCase();
 
   return (
     <div className="messenger">
