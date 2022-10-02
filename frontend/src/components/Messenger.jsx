@@ -11,9 +11,14 @@ import Friends from "./Friends";
 import RightSide from "./RightSide";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState, useRef } from "react";
-
+import { io } from "socket.io-client";
 const Messenger = () => {
   const scrollRef = useRef();
+  const socket = useRef();
+  useEffect(() => {
+    socket.current = io("ws://localhost:8000");
+  }, []);
+  console.log(socket);
   const [currentFriend, setCurrentFriend] = useState("");
   const [newMessage, setNewMessage] = useState("");
   const inputHandler = (e) => {
