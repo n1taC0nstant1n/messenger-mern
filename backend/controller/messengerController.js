@@ -1,3 +1,4 @@
+const formidable = require("formidable");
 const User = require("../models/authModel");
 const messageModel = require("../models/messageModel");
 module.exports.getFriends = async (req, res) => {
@@ -72,4 +73,13 @@ module.exports.messageGet = async (req, res) => {
       },
     });
   }
+};
+
+module.exports.ImageMessageSend = (req, res) => {
+  const form = formidable();
+  form.parse(req, (error, fields, files) => {
+    // console.log(fields);
+    // console.log(files);
+    const { senderName, receiverId, imageName } = fields;
+  });
 };
