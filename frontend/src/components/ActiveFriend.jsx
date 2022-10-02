@@ -1,51 +1,11 @@
 import React from "react";
 
-const ActiveFriends = () => {
+const ActiveFriends = ({ user }) => {
   return (
     <div className="active-friend">
       <div className="image-active-icon">
         <div className="image">
-          <img src="/image/5066kazi.jpg" alt="" />
-          <div className="active-icon"></div>
-        </div>
-        <div className="image">
-          <img src="/image/5066kazi.jpg" alt="" />
-          <div className="active-icon"></div>
-        </div>
-        <div className="image">
-          <img src="/image/5066kazi.jpg" alt="" />
-          <div className="active-icon"></div>
-        </div>
-        <div className="image">
-          <img src="/image/5066kazi.jpg" alt="" />
-          <div className="active-icon"></div>
-        </div>
-        <div className="image">
-          <img src="/image/5066kazi.jpg" alt="" />
-          <div className="active-icon"></div>
-        </div>
-        <div className="image">
-          <img src="/image/5066kazi.jpg" alt="" />
-          <div className="active-icon"></div>
-        </div>
-        <div className="image">
-          <img src="/image/5066kazi.jpg" alt="" />
-          <div className="active-icon"></div>
-        </div>
-        <div className="image">
-          <img src="/image/5066kazi.jpg" alt="" />
-          <div className="active-icon"></div>
-        </div>
-        <div className="image">
-          <img src="/image/5066kazi.jpg" alt="" />
-          <div className="active-icon"></div>
-        </div>
-        <div className="image">
-          <img src="/image/5066kazi.jpg" alt="" />
-          <div className="active-icon"></div>
-        </div>
-        <div className="image">
-          <img src="/image/5066kazi.jpg" alt="" />
+          <img src={`./image/${user.userInfo.image}`} alt="" />
           <div className="active-icon"></div>
         </div>
       </div>
