@@ -59,7 +59,13 @@ export const ImageMessageSend = (data) => async (dispatch) => {
       "/api/messenger/image-message-send",
       data
     );
-    console.log(response.data);
+    //console.log(response.data);
+    dispatch({
+      type: MESSAGE_SEND_SUCCESS,
+      payload: {
+        message: response.data.message,
+      },
+    });
   } catch (error) {
     console.log(error.response.data);
   }
