@@ -21,6 +21,7 @@ const Messenger = () => {
   const [currentFriend, setCurrentFriend] = useState("");
   const [newMessage, setNewMessage] = useState("");
   const [activeUser, setActiveUser] = useState([]);
+  const [typingMessage, setTypingMessage] = useState([]);
 
   const [socketMessage, setSocketMessage] = useState("");
 
@@ -29,6 +30,10 @@ const Messenger = () => {
     socket.current.on("getMessage", (data) => {
       //console.log(data);
       setSocketMessage(data);
+    });
+    socket.current.on("typingMessageGet", (data) => {
+      //console.log(data);
+      setTypingMessage(data);
     });
   }, []);
   useEffect(() => {
@@ -64,6 +69,11 @@ const Messenger = () => {
 
   const inputHandler = (e) => {
     setNewMessage(e.target.value);
+    socket.current.emit("typingMessage", {
+      senderId: myInfo.id,
+      receiverId: currentFriend._id,
+      message: e.target.value,
+    });
   };
 
   const sendMessage = (e) => {
