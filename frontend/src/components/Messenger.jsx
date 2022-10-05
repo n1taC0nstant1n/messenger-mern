@@ -93,6 +93,11 @@ const Messenger = () => {
         image: "",
       },
     });
+    socket.current.emit("typingMessage", {
+      senderId: myInfo.id,
+      receiverId: currentFriend._id,
+      message: "",
+    });
     dispatch(messageSend(data));
     setNewMessage("");
     //console.log(newMessage);
@@ -122,6 +127,17 @@ const Messenger = () => {
     if (e.target.files.length !== 0) {
       const imagename = e.target.files[0].name;
       const newImageName = Date.now() + imagename;
+
+      socket.current.emit("sendMessage", {
+        senderId: myInfo.id,
+        senderName: myInfo.userName,
+        receiverId: currentFriend._id,
+        time: new Date(),
+        message: {
+          text: "",
+          image: newImageName,
+        },
+      });
       const formData = new FormData();
       formData.append("senderName", myInfo.userName);
       formData.append("imageName", newImageName);
@@ -210,6 +226,7 @@ const Messenger = () => {
             emojiSend={emojiSend}
             ImageSend={ImageSend}
             activeUser={activeUser}
+            typingMessage={typingMessage}
           />
         ) : (
           "Please select Your Friend"
