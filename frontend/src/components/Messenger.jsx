@@ -11,6 +11,7 @@ import Friends from "./Friends";
 import RightSide from "./RightSide";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState, useRef } from "react";
+import toast, { Toaster } from "react-hot-toast";
 import { io } from "socket.io-client";
 const Messenger = () => {
   const scrollRef = useRef();
@@ -66,6 +67,16 @@ const Messenger = () => {
     });
   }, []);
   //console.log(socket);
+
+  useEffect(() => {
+    if (
+      socketMessage.senderId !== currentFriend._id &&
+      socketMessage.receiverId === myInfo.id
+    ) {
+      toast.success(`${socketMessage.senderName} Send a New Message`);
+    }
+    //console.log(users);
+  }, [socketMessage]);
 
   const inputHandler = (e) => {
     setNewMessage(e.target.value);
@@ -157,6 +168,11 @@ const Messenger = () => {
 
   return (
     <div className="messenger">
+      <Toaster
+        position={"top-right"}
+        reverseOrder="false"
+        toastOptions={{ style: { fontSize: "18px" } }}
+      />
       <div className="row">
         <div className="col-3">
           <div className="left-side">
