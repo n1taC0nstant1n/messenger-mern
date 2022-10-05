@@ -98,6 +98,7 @@ const Messenger = () => {
       receiverId: currentFriend._id,
       message: "",
     });
+
     dispatch(messageSend(data));
     setNewMessage("");
     //console.log(newMessage);
@@ -121,6 +122,11 @@ const Messenger = () => {
 
   const emojiSend = (emu) => {
     setNewMessage(`${newMessage}` + emu);
+    socket.current.emit("typingMessage", {
+      senderId: myInfo.id,
+      receiverId: currentFriend._id,
+      message: emu,
+    });
   };
 
   const ImageSend = (e) => {
