@@ -238,7 +238,7 @@ const Messenger = () => {
                       }
                       onClick={() => setCurrentFriend(fd.fndInfo)}
                     >
-                      <Friends friend={fd} myId={myInfo} />
+                      <Friends friend={fd} myId={myInfo.id} />
                     </div>
                   ))
                 : "No Friend"}
