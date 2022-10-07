@@ -22,7 +22,9 @@ const Messenger = () => {
   const scrollRef = useRef();
   const socket = useRef();
 
-  const { friends, message } = useSelector((state) => state.messenger);
+  const { friends, message, messageSendSuccess } = useSelector(
+    (state) => state.messenger
+  );
   const { myInfo } = useSelector((state) => state.auth);
   const [currentFriend, setCurrentFriend] = useState("");
   const [newMessage, setNewMessage] = useState("");
@@ -101,16 +103,7 @@ const Messenger = () => {
       receiverId: currentFriend._id,
       message: newMessage ? newMessage : "❤",
     };
-    socket.current.emit("sendMessage", {
-      senderId: myInfo.id,
-      senderName: myInfo.userName,
-      receiverId: currentFriend._id,
-      time: new Date(),
-      message: {
-        text: newMessage ? newMessage : "❤",
-        image: "",
-      },
-    });
+
     socket.current.emit("typingMessage", {
       senderId: myInfo.id,
       receiverId: currentFriend._id,
@@ -121,6 +114,11 @@ const Messenger = () => {
     setNewMessage("");
     //console.log(newMessage);
   };
+  useEffect(() => {
+    if (messageSendSuccess) {
+      socket.current.emit("sendMessage", message[message.length - 1]);
+    }
+  }, [messageSendSuccess]);
   console.log(currentFriend);
 
   //console.log(friends);
