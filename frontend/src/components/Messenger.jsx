@@ -5,6 +5,7 @@ import {
   messageSend,
   getMessage,
   ImageMessageSend,
+  seenMessage,
 } from "../store/actions/messengerAction";
 import ActiveFriend from "./ActiveFriend";
 import Friends from "./Friends";
@@ -54,6 +55,13 @@ const Messenger = () => {
           type: "SOCKET_MESSAGE",
           payload: {
             message: socketMessage,
+          },
+        });
+        dispatch(seenMessage(socketMessage));
+        dispatch({
+          type: "UPDATE_FRIEND_MESSAGE",
+          payload: {
+            msgInfo: socketMessage,
           },
         });
       }
