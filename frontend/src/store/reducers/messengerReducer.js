@@ -5,6 +5,8 @@ import {
   SOCKET_MESSAGE,
   UPDATE_FRIEND_MESSAGE,
   MESSAGE_SEND_SUCCESS_CLEAR,
+  SEEN_MESSAGE,
+  DELIVERED_MESSAGE,
 } from "../types/messengerType";
 const messengerState = {
   friends: [],
@@ -49,6 +51,8 @@ export const messengerReducer = (state = messengerState, action) => {
         f.fndInfo._id === payload.msgInfo.senderId
     );
     state.friends[index].msgInfo = payload.msgInfo;
+    state.friends[index].msgInfo.state = payload.status;
+
     return state;
   }
 
@@ -56,6 +60,29 @@ export const messengerReducer = (state = messengerState, action) => {
     return {
       ...state,
       messageSendSuccess: false,
+    };
+  }
+
+  if (type === SEEN_MESSAGE) {
+    const index = state.friends.findIndex(
+      (f) =>
+        f.fndInfo._id === payload.msgInfo.receiverId ||
+        f.fndInfo._id === payload.msgInfo.senderId
+    );
+    state.friends[index].msgInfo.state = "seen";
+    return {
+      ...state,
+    };
+  }
+  if (type === DELIVERED_MESSAGE) {
+    const index = state.friends.findIndex(
+      (f) =>
+        f.fndInfo._id === payload.msgInfo.receiverId ||
+        f.fndInfo._id === payload.msgInfo.senderId
+    );
+    state.friends[index].msgInfo.state = "delivered";
+    return {
+      ...state,
     };
   }
   return state;
