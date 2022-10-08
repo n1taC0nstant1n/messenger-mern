@@ -6,6 +6,7 @@ import {
   getMessage,
   ImageMessageSend,
   seenMessage,
+  updateMessage,
 } from "../store/actions/messengerAction";
 import ActiveFriend from "./ActiveFriend";
 import Friends from "./Friends";
@@ -90,6 +91,13 @@ const Messenger = () => {
     ) {
       notificationSPlay();
       toast.success(`${socketMessage.senderName} Send a New Message`);
+      dispatch(updateMessage(socketMessage));
+      dispatch({
+        type: "UPDATE_FRIEND_MESSAGE",
+        payload: {
+          msgInfo: socketMessage,
+        },
+      });
     }
     //console.log(users);
   }, [socketMessage]);
