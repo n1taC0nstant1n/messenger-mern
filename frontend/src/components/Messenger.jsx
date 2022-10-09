@@ -257,10 +257,8 @@ const Messenger = () => {
                 />
               </div>
             </div>
-            <div className="active-friends">
-              {/* {activeUser && activeUser.length > 0
-                ? activeUser.map((u) => <ActiveFriend user={u} />)
-                : ""} */}
+            {/* <div className="active-friends">
+              
               {activeUser && activeUser.length > 0
                 ? activeUser.map((u) => (
                     <ActiveFriend
@@ -269,7 +267,7 @@ const Messenger = () => {
                     />
                   ))
                 : ""}
-            </div>
+            </div> */}
             <div className="friends">
               {friends && friends.length > 0
                 ? friends.map((fd) => (
@@ -281,7 +279,11 @@ const Messenger = () => {
                       }
                       onClick={() => setCurrentFriend(fd.fndInfo)}
                     >
-                      <Friends friend={fd} myId={myInfo.id} />
+                      <Friends
+                        activeUser={activeUser}
+                        friend={fd}
+                        myId={myInfo.id}
+                      />
                     </div>
                   ))
                 : "No Friend"}

@@ -1,14 +1,23 @@
 import React from "react";
 import moment from "moment";
 import { FaRegCheckCircle } from "react-icons/fa";
+import FriendInfo from "./FriendInfo";
 const Friends = (props) => {
   const { fndInfo, msgInfo } = props.friend;
   const myId = props.myId;
+  const { activeUser } = props;
   return (
     <div className="friend">
       <div className="friend-image">
         <div className="image">
           <img src={`./image/${fndInfo.image}`} alt="" />
+          {activeUser &&
+          activeUser.length > 0 &&
+          activeUser.some((u) => u.userId === fndInfo._id) ? (
+            <div className="active_icon"></div>
+          ) : (
+            ""
+          )}
         </div>
       </div>
 
