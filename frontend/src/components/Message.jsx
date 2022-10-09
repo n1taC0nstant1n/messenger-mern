@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import moment from "moment";
+import { FaRegCheckCircle } from "react-icons/fa";
 
 const Message = ({ message, currentFriend, scrollRef, typingMessage }) => {
   const { myInfo } = useSelector((state) => state.auth);
@@ -8,18 +9,38 @@ const Message = ({ message, currentFriend, scrollRef, typingMessage }) => {
     <>
       <div className="message-show">
         {message && message.length > 0 ? (
-          message.map((m) =>
+          message.map((m, index) =>
             m.senderId === myInfo.id ? (
               <div className="my-message" ref={scrollRef}>
                 <div className="image-message">
                   <div className="my-text">
-                    <div className="message-text">
+                    <p className="message-text">
                       {m.message.text === "" ? (
                         <img src={`./image/${m.message.image}`} alt="" />
                       ) : (
                         m.message.text
                       )}
-                    </div>
+                    </p>
+                    {index === message.length - 1 &&
+                    m.senderId === myInfo.id ? (
+                      m.status === "seen" ? (
+                        <img
+                          className="img"
+                          src={`/image/${currentFriend.image}`}
+                          alt=""
+                        />
+                      ) : m.status === "delivered" ? (
+                        <span>
+                          <FaRegCheckCircle />
+                        </span>
+                      ) : (
+                        <span>
+                          <FaRegCheckCircle />
+                        </span>
+                      )
+                    ) : (
+                      ""
+                    )}
                   </div>
                 </div>
                 <div className="time">
