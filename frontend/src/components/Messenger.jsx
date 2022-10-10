@@ -234,6 +234,23 @@ const Messenger = () => {
   useEffect(() => {
     dispatch(getTheme());
   }, []);
+
+  const search = (e) => {
+    const getFriendClass = document.getElementsByClassName("hover-friend");
+    const friendNameClass = document.getElementsByClassName("Fd_name");
+    for (
+      var i = 0;
+      i < getFriendClass.length, i < friendNameClass.length;
+      i++
+    ) {
+      let text = friendNameClass[i].innerText.toLowerCase();
+      if (text.indexOf(e.target.value.toLowerCase()) > -1) {
+        getFriendClass[i].style.display = "";
+      } else {
+        getFriendClass[i].style.display = "none";
+      }
+    }
+  };
   return (
     <div className={themeMood === "dark" ? "messenger theme" : "messenger"}>
       <Toaster
@@ -297,6 +314,7 @@ const Messenger = () => {
                   type="text"
                   placeholder="Search"
                   className="form-control"
+                  onChange={search}
                 />
               </div>
             </div>
