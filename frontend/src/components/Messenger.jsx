@@ -7,6 +7,8 @@ import {
   ImageMessageSend,
   seenMessage,
   updateMessage,
+  getTheme,
+  themeSet,
 } from "../store/actions/messengerAction";
 import { userLogout } from "../store/actions/authActions";
 import ActiveFriend from "./ActiveFriend";
@@ -25,9 +27,13 @@ const Messenger = () => {
   const scrollRef = useRef();
   const socket = useRef();
 
-  const { friends, message, messageSendSuccess } = useSelector(
-    (state) => state.messenger
-  );
+  const {
+    friends,
+    message,
+    messageSendSuccess,
+    message_get_success,
+    themeMood,
+  } = useSelector((state) => state.messenger);
   const { myInfo } = useSelector((state) => state.auth);
   const [currentFriend, setCurrentFriend] = useState("");
   const [newMessage, setNewMessage] = useState("");
@@ -224,8 +230,12 @@ const Messenger = () => {
     dispatch(userLogout());
     socket.current.emit("logout", myInfo.id);
   };
+
+  useEffect(() => {
+    dispatch(getTheme());
+  }, []);
   return (
-    <div className="messenger">
+    <div className={themeMood === "dark" ? "messenger theme" : "messenger"}>
       <Toaster
         position={"top-right"}
         reverseOrder="false"
@@ -254,11 +264,23 @@ const Messenger = () => {
                   <h3>Dark Mode</h3>
                   <div className="on">
                     <label htmlFor="dark">ON</label>
-                    <input type="radio" value="dark" name="theme" id="dark" />
+                    <input
+                      onChange={(e) => dispatch(themeSet(e.target.value))}
+                      type="radio"
+                      value="dark"
+                      name="theme"
+                      id="dark"
+                    />
                   </div>
                   <div className="of">
                     <label htmlFor="white">OFF</label>
-                    <input type="radio" value="white" name="theme" id="white" />
+                    <input
+                      onChange={(e) => dispatch(themeSet(e.target.value))}
+                      type="radio"
+                      value="white"
+                      name="theme"
+                      id="white"
+                    />
                   </div>
                   <div className="logout" onClick={logout}>
                     <FaSignOutAlt /> Logout
