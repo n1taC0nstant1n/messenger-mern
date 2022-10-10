@@ -222,6 +222,7 @@ const Messenger = () => {
 
   const logout = () => {
     dispatch(userLogout());
+    socket.current.emit("logout", myInfo.id);
   };
   return (
     <div className="messenger">
