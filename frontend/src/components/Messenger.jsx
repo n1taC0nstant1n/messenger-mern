@@ -1,5 +1,5 @@
 import React from "react";
-import { FaEdit, FaEllipsisH, FaSistrix } from "react-icons/fa";
+import { FaEdit, FaEllipsisH, FaSignOutAlt, FaSistrix } from "react-icons/fa";
 import {
   getFriends,
   messageSend,
@@ -8,6 +8,7 @@ import {
   seenMessage,
   updateMessage,
 } from "../store/actions/messengerAction";
+import { userLogout } from "../store/actions/authActions";
 import ActiveFriend from "./ActiveFriend";
 import Friends from "./Friends";
 import RightSide from "./RightSide";
@@ -217,6 +218,11 @@ const Messenger = () => {
     }
   };
 
+  const [hide, setHide] = useState(true);
+
+  const logout = () => {
+    dispatch(userLogout());
+  };
   return (
     <div className="messenger">
       <Toaster
@@ -237,11 +243,25 @@ const Messenger = () => {
                 </div>
               </div>
               <div className="icons">
-                <div className="icon">
+                <div className="icon" onClick={() => setHide(!hide)}>
                   <FaEllipsisH />
                 </div>
                 <div className="icon">
                   <FaEdit />
+                </div>
+                <div className={hide ? "theme_logout" : "theme_logout show"}>
+                  <h3>Dark Mode</h3>
+                  <div className="on">
+                    <label htmlFor="dark">ON</label>
+                    <input type="radio" value="dark" name="theme" id="dark" />
+                  </div>
+                  <div className="of">
+                    <label htmlFor="white">OFF</label>
+                    <input type="radio" value="white" name="theme" id="white" />
+                  </div>
+                  <div className="logout" onClick={logout}>
+                    <FaSignOutAlt /> Logout
+                  </div>
                 </div>
               </div>
             </div>
